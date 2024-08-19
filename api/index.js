@@ -27,10 +27,10 @@ app.post("/api/categories", async (req, res) =>{
     if(!req.body) return res.sendStatus(400);
     const db = client.db("material");
     const collectionCategories = db.collection("materials_categories");
-    const id = req.body.id;
+    const id = req.body._id;
     const title = req.body.title;
     const slug = req.body.slug;
-    const category = {_id: id, title: title, slug:slug};
+    const category = { title: title, slug:slug};
     // сохраняем в бд
     const result = await collectionCategories.insertOne(category);
     console.log(result);
