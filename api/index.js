@@ -30,7 +30,7 @@ app.post("/api/categories", async (req, res) =>{
     const id = req.body._id;
     const title = req.body.title;
     const slug = req.body.slug;
-    const category = { title: title, slug:slug};
+    const category = { id: slug, title: title, slug:slug};
     // сохраняем в бд
     const result = await collectionCategories.insertOne(category);
     console.log(result);
