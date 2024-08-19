@@ -5,8 +5,11 @@ const {MongoClient} = require("mongodb");
 // const Schema = mongoose.Schema;
 const objectId = require("mongodb").ObjectId;
 const client = new MongoClient("mongodb+srv://admin:12345asd@rat.gk7dz4o.mongodb.net/?appName=rat");
+const corsOptions = {
+    origin: "http://localhost:3000"
+};
 
-app.use(cors());
+app.use(cors(corsOptions));
 app.get("/", (req, res) => res.send("Express on Vercel"));
 app.get("/api/users", async (req, res)=>{
     // получаем всех пользователей
