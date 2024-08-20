@@ -1,6 +1,9 @@
 const express = require("express");
 const cors = require('cors');
+const bodyParser = require('body-parser')
 const app = express();
+app.use(express.urlencoded())
+app.use(express.json());
 const {MongoClient} = require("mongodb");
 // const Schema = mongoose.Schema;
 const objectId = require("mongodb").ObjectId;
@@ -10,6 +13,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+
 app.get("/", (req, res) => res.send("Express on Vercel"));
 app.get("/api/users", async (req, res)=>{
     // получаем всех пользователей
@@ -18,26 +22,22 @@ app.get("/api/users", async (req, res)=>{
     const navList = await collectionNav.find().toArray();
     res.send(navList);
 });
-app.get("/api/categories", async (req, res)=>{
-    // получаем всех пользователей
+app.get("/api/categories", async(req, res)=> {
+// получаем всех пользователей
     const db = client.db("material");
     const collectionCategories = db.collection("materials_categories");
     const catList = await collectionCategories.find().toArray();
     res.send(catList);
 });
 app.post("/api/categories", async (req, res) =>{
-    console.log(req)
+    const db = await client.db("material");
+    const collectionCategories = await db.collection("materials_categories");
     if(!req.body) return res.sendStatus(400);
-    const db = client.db("material");
-    console.log(db);
-    const collectionCategories = db.collection("materials_categories");
-    console.log(collectionCategories);
-    // const title = req.body.title;
-    // const slug = req.body.slug;
-    // const category = {title: title, slug:slug};
-    const result = await collectionCategories.insertOne(req);
-    console.log(result);
+    const result = await collectionCategories.insertOne(req.body);
+
+    console.log('req.body', req.body)
     res.send(result);
+    console.log(result);
 });
 app.listen(8800, () => console.log("Server ready on port 3000."));
 
