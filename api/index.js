@@ -29,14 +29,14 @@ app.post("/api/categories", async (req, res) =>{
     console.log(req)
     if(!req.body) return res.sendStatus(400);
     const db = client.db("material");
+    console.log(db);
     const collectionCategories = db.collection("materials_categories");
+    console.log(collectionCategories);
     // const title = req.body.title;
     // const slug = req.body.slug;
     // const category = {title: title, slug:slug};
-    // сохраняем в бд
     const result = await collectionCategories.insertOne(req);
     console.log(result);
-    // await category.save();
     res.send(result);
 });
 app.listen(8800, () => console.log("Server ready on port 3000."));
