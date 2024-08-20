@@ -27,7 +27,7 @@ app.get("/api/categories", async (req, res)=>{
 });
 app.post("/api/categories", async (req, res) =>{
     console.log(req)
-    // if(!req.body) return res.sendStatus(400);
+    if(!req.body) return res.sendStatus(400);
     const db = client.db("material");
     const collectionCategories = db.collection("materials_categories");
     // const title = req.body.title;
