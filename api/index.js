@@ -44,17 +44,17 @@ app.put("/api/categories", async (req, res)=>{
     const db = await client.db("material");
     const collectionCategories = await db.collection("materials_categories");
     if(!req.body) return res.sendStatus(400);
-    const id = req.body.id;
     const slug = req.body.slug;
     const title = req.body.title;
-    const oldSlug = req.body.title;
-    const newCategory = {_id: slug, title: title, slug: slug};
+    const oldSlug = req.body.oldSlug;
+    console.log('req.body', req.body)
+    // const newCategory = {title: title, slug: slug};
     // обновляем данные пользователя по id
-    const category = await collectionCategories.findOneAndUpdate({_id: oldSlug}, newCategory);
+    const category = await collectionCategories.findOneAndUpdate({_id: oldSlug}, { $set: {title: title, slug: slug}});
     if(category) res.send(category);
     else res.sendStatus(404);
 });
-app.listen(8800, () => console.log("Server ready on port 3000."));
+app.listen(8800, () => console.log("Server ready on port 8800."));
 
 
 module.exports = app;
