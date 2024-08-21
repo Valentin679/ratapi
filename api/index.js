@@ -48,11 +48,10 @@ app.put("/api/categories", async (req, res)=>{
     const title = req.body.title;
     const oldSlug = req.body.oldSlug;
     console.log('req.body', req.body)
-    // const newCategory = {title: title, slug: slug};
-    // обновляем данные пользователя по id
-    const category = await collectionCategories.findOneAndUpdate({_id: oldSlug}, { $set: {title: title, slug: slug}});
-    if(category) res.send(category);
-    else res.sendStatus(404);
+    const newCategory = {title: title, slug: slug};
+    // обновляем данные 
+    const result = await collectionCategories.findOneAndUpdate({slug: oldSlug}, { $set: newCategory});
+    res.status(200).json({result})
 });
 app.listen(8800, () => console.log("Server ready on port 8800."));
 
