@@ -49,10 +49,21 @@ app.put("/api/categories", async (req, res)=>{
     const oldSlug = req.body.oldSlug;
     console.log('req.body', req.body)
     const newCategory = {title: title, slug: slug};
-    // обновляем данные 
+    // обновляем данные
     const result = await collectionCategories.findOneAndUpdate({slug: oldSlug}, { $set: newCategory});
     res.status(200).json({result})
 });
+
+app.delete("/api/categories/:id", async(req, res)=>{
+    const db = await client.db("material");
+    const collectionCategories = await db.collection("materials_categories");
+    if(!req.body) return res.sendStatus(400);
+    const slug = req.params.id;
+    // удаляем по id
+    const result = await collectionCategories.deleteOne({slug: slug});
+    res.status(200).json({result})
+});
+
 app.listen(8800, () => console.log("Server ready on port 8800."));
 
 
