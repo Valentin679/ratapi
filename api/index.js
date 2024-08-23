@@ -24,6 +24,7 @@ app.get("/api/users", async (req, res)=>{
     const navList = await collectionNav.find().toArray();
     res.send(navList);
 });
+// Категории сырья
 app.get("/api/categories", async(req, res)=> {
 // получаем всех пользователей
     const db = client.db("material");
@@ -64,6 +65,14 @@ app.delete("/api/categories/:id", async(req, res)=>{
     res.status(200).json({result})
 });
 
+// Сырье
+app.get("/api/materials", async(req, res)=> {
+// получаем всех пользователей
+    const db = client.db("material");
+    const collectionMaterials = db.collection("materials");
+    const materialsList = await collectionMaterials.find().toArray();
+    res.send(materialsList);
+});
 app.listen(8800, () => console.log("Server ready on port 8800."));
 
 
