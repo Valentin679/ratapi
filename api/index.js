@@ -25,14 +25,14 @@ app.get("/api/users", async (req, res)=>{
     res.send(navList);
 });
 // Категории сырья
-app.get("/api/categories", async(req, res)=> {
+app.get("/api/materials-categories", async(req, res)=> {
 // получаем всех пользователей
     const db = client.db("material");
     const collectionCategories = db.collection("materials_categories");
     const catList = await collectionCategories.find().toArray();
     res.send(catList);
 });
-app.post("/api/categories", async (req, res) =>{
+app.post("/api/materials-categories", async (req, res) =>{
     const db = await client.db("material");
     const collectionCategories = await db.collection("materials_categories");
     if(!req.body) return res.sendStatus(400);
@@ -41,7 +41,7 @@ app.post("/api/categories", async (req, res) =>{
     res.send(result);
     console.log(result);
 });
-app.put("/api/categories", async (req, res)=>{
+app.put("/api/materials-categories", async (req, res)=>{
     const db = await client.db("material");
     const collectionCategories = await db.collection("materials_categories");
     if(!req.body) return res.sendStatus(400);
@@ -55,7 +55,7 @@ app.put("/api/categories", async (req, res)=>{
     res.status(200).json({result})
 });
 
-app.delete("/api/categories/:id", async(req, res)=>{
+app.delete("/api/materials-categories/:id", async(req, res)=>{
     const db = await client.db("material");
     const collectionCategories = await db.collection("materials_categories");
     if(!req.body) return res.sendStatus(400);
