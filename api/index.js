@@ -11,6 +11,7 @@ const client = new MongoClient("mongodb+srv://admin:12345asd@rat.gk7dz4o.mongodb
 const corsOptions = {
     origin: ["http://localhost:3000","https://rat-three.vercel.app"],
     default: "https://rat-three.vercel.app"
+    // default: "http://localhost:3000"
 
 };
 
