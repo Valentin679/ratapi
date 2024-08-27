@@ -89,7 +89,7 @@ app.put("/api/materials", async (req, res) => {
     const db = client.db("material");
     const collectionMaterials = db.collection("materials");
     if (!req.body) return res.sendStatus(400);
-    const id = req.body._id;
+    const id = req.body.id;
     const title = req.body.title;
     const category = req.body.category;
     const categoryTitle = req.body.categoryTitle;
