@@ -74,6 +74,22 @@ app.get("/api/materials", async(req, res)=> {
     const materialsList = await collectionMaterials.find().toArray();
     res.send(materialsList);
 });
+
+app.put("/api/materials", async (req, res)=>{
+    const db = client.db("material");
+    const collectionMaterials = db.collection("materials");
+    if(!req.body) return res.sendStatus(400);
+    const id = req.body.id;
+    const title = req.body.title;
+    const category = req.body.category;
+    const categoryTitle = req.body.categoryTitle;
+    console.log('req.body', req.body)
+    const newMaterial = {title, category, categoryTitle};
+    // обновляем данные
+    const result = await collectionMaterials.findOneAndUpdate({id: id}, { $set: newMaterial});
+    res.status(200).json({result})
+});
+
 app.listen(8800, () => console.log("Server ready on port 8800."));
 
 
