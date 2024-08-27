@@ -9,7 +9,7 @@ const {MongoClient} = require("mongodb");
 const objectId = require("mongodb").ObjectId;
 const client = new MongoClient("mongodb+srv://admin:12345asd@rat.gk7dz4o.mongodb.net/?appName=rat");
 const corsOptions = {
-    origin: ["http://localhost:3000","https://rat-three.vercel.app"],
+    origin: ["http://localhost:3000", "https://rat-three.vercel.app"],
     default: "https://rat-three.vercel.app"
     // default: "http://localhost:3000"
 
@@ -18,7 +18,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.get("/", (req, res) => res.send("Express on Vercel"));
-app.get("/api/users", async (req, res)=>{
+app.get("/api/users", async (req, res) => {
     // получаем всех пользователей
     const db = client.db("Menu");
     const collectionNav = db.collection("nav");
@@ -26,40 +26,40 @@ app.get("/api/users", async (req, res)=>{
     res.send(navList);
 });
 // Категории сырья
-app.get("/api/materials-categories", async(req, res)=> {
+app.get("/api/materials-categories", async (req, res) => {
 // получаем всех пользователей
     const db = client.db("material");
     const collectionCategories = db.collection("materials_categories");
     const catList = await collectionCategories.find().toArray();
     res.send(catList);
 });
-app.post("/api/materials-categories", async (req, res) =>{
+app.post("/api/materials-categories", async (req, res) => {
     const db = await client.db("material");
     const collectionCategories = await db.collection("materials_categories");
-    if(!req.body) return res.sendStatus(400);
+    if (!req.body) return res.sendStatus(400);
     const result = await collectionCategories.insertOne(req.body);
     console.log('req.body', req.body)
     res.send(result);
     console.log(result);
 });
-app.put("/api/materials-categories", async (req, res)=>{
+app.put("/api/materials-categories", async (req, res) => {
     const db = await client.db("material");
     const collectionCategories = await db.collection("materials_categories");
-    if(!req.body) return res.sendStatus(400);
+    if (!req.body) return res.sendStatus(400);
     const slug = req.body.slug;
     const title = req.body.title;
     const oldSlug = req.body.oldSlug;
     console.log('req.body', req.body)
     const newCategory = {title: title, slug: slug};
     // обновляем данные
-    const result = await collectionCategories.findOneAndUpdate({slug: oldSlug}, { $set: newCategory});
+    const result = await collectionCategories.findOneAndUpdate({slug: oldSlug}, {$set: newCategory});
     res.status(200).json({result})
 });
 
-app.delete("/api/materials-categories/:id", async(req, res)=>{
+app.delete("/api/materials-categories/:id", async (req, res) => {
     const db = await client.db("material");
     const collectionCategories = await db.collection("materials_categories");
-    if(!req.body) return res.sendStatus(400);
+    if (!req.body) return res.sendStatus(400);
     const slug = req.params.id;
     // удаляем по id
     const result = await collectionCategories.deleteOne({slug: slug});
@@ -67,7 +67,7 @@ app.delete("/api/materials-categories/:id", async(req, res)=>{
 });
 
 // Сырье
-app.get("/api/materials", async(req, res)=> {
+app.get("/api/materials", async (req, res) => {
 // получаем всех пользователей
     const db = client.db("material");
     const collectionMaterials = db.collection("materials");
@@ -75,10 +75,20 @@ app.get("/api/materials", async(req, res)=> {
     res.send(materialsList);
 });
 
-app.put("/api/materials", async (req, res)=>{
+app.post("/api/materials", async (req, res) => {
     const db = client.db("material");
     const collectionMaterials = db.collection("materials");
-    if(!req.body) return res.sendStatus(400);
+    if (!req.body) return res.sendStatus(400);
+    const result = await collectionMaterials.insertOne(req.body);
+    console.log('req.body', req.body)
+    res.send(result);
+    console.log(result);
+});
+
+app.put("/api/materials", async (req, res) => {
+    const db = client.db("material");
+    const collectionMaterials = db.collection("materials");
+    if (!req.body) return res.sendStatus(400);
     const id = req.body.id;
     const title = req.body.title;
     const category = req.body.category;
@@ -86,7 +96,7 @@ app.put("/api/materials", async (req, res)=>{
     console.log('req.body', req.body)
     const newMaterial = {title, category, categoryTitle};
     // обновляем данные
-    const result = await collectionMaterials.findOneAndUpdate({id: id}, { $set: newMaterial});
+    const result = await collectionMaterials.findOneAndUpdate({id: id}, {$set: newMaterial});
     res.status(200).json({result})
 });
 
