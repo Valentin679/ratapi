@@ -96,7 +96,7 @@ app.put("/api/materials", async (req, res) => {
     console.log('req.body', req.body)
     const newMaterial = {title, category, categoryTitle};
     // обновляем данные
-    const result = await collectionMaterials.findOneAndUpdate({id: id}, {$set: newMaterial});
+    const result = await collectionMaterials.findOneAndUpdate({_id: id}, {$set: newMaterial});
     res.status(200).json({result})
 });
 
