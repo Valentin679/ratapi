@@ -108,7 +108,7 @@ app.delete("/api/materials/:id", async (req, res) => {
     if (!req.body) return res.sendStatus(400);
     const id = req.params.id;
     // удаляем по id
-    const result = await collectionMaterials.deleteOne({id: id});
+    const result = await collectionMaterials.deleteOne({_id: id});
     res.status(200).json({result})
 });
 
