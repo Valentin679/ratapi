@@ -4,9 +4,9 @@ const bodyParser = require('body-parser')
 const app = express();
 app.use(express.urlencoded())
 app.use(express.json());
-const {MongoClient} = require("mongodb");
+const {MongoClient, ObjectId} = require("mongodb");
 // const Schema = mongoose.Schema;
-const objectId = require("mongodb").ObjectId;
+const objectId = require("mongodb");
 const client = new MongoClient("mongodb+srv://admin:12345asd@rat.gk7dz4o.mongodb.net/?appName=rat");
 const corsOptions = {
     origin: ["http://localhost:3000", "https://rat-three.vercel.app"],
@@ -107,8 +107,9 @@ app.delete("/api/materials/:id", async (req, res) => {
     const collectionMaterials = db.collection("materials");
     if (!req.body) return res.sendStatus(400);
     const id = req.params.id;
+    const newId = new ObjectId(id)
     // удаляем по id
-    const result = await collectionMaterials.deleteOne({_id: id});
+    const result = await collectionMaterials.deleteOne({_id: newId});
     res.status(200).json({result})
 });
 
