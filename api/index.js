@@ -106,9 +106,9 @@ app.delete("/api/materials/:id", async (req, res) => {
     const db = client.db("material");
     const collectionMaterials = db.collection("materials");
     if (!req.body) return res.sendStatus(400);
-    const slug = req.params.id;
+    const id = req.params.id;
     // удаляем по id
-    const result = await collectionMaterials.deleteOne({slug: slug});
+    const result = await collectionMaterials.deleteOne({id: id});
     res.status(200).json({result})
 });
 
