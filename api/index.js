@@ -117,8 +117,8 @@ const materials = require('./modules/materials')
 
 app.get("/api/materials", materials.getMaterials)
 app.post("/api/materials", materials.addMaterials)
-app.put("/api/materials/:id", materials.putMaterials)
-app.delete("/api/materials", materials.deleteMaterials)
+app.put("/api/materials", materials.putMaterials)
+app.delete("/api/materials/:id", materials.deleteMaterials)
 
 
 
