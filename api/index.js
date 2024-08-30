@@ -28,46 +28,6 @@ app.get("/api/users", async (req, res) => {
     const navList = await collectionNav.find().toArray();
     res.send(navList);
 });
-// Категории сырья
-// app.get("/api/materials-categories", async (req, res) => {
-// // получаем всех пользователей
-//     const collectionCategories = await client.db("material").collection("materials_categories");
-//     // const collectionCategories = db.collection("materials_categories");
-//     const catList = await collectionCategories.find().toArray();
-//     res.send(catList);
-// });
-// app.post("/api/materials-categories", async (req, res) => {
-//     const db = await client.db("material");
-//     const collectionCategories = await db.collection("materials_categories");
-//     if (!req.body) return res.sendStatus(400);
-//     const result = await collectionCategories.insertOne(req.body);
-//     console.log('req.body', req.body)
-//     res.send(result);
-//     console.log(result);
-// });
-// app.put("/api/materials-categories", async (req, res) => {
-//     const db = await client.db("material");
-//     const collectionCategories = await db.collection("materials_categories");
-//     if (!req.body) return res.sendStatus(400);
-//     const slug = req.body.slug;
-//     const title = req.body.title;
-//     const oldSlug = req.body.oldSlug;
-//     console.log('req.body', req.body)
-//     const newCategory = {title: title, slug: slug};
-//     // обновляем данные
-//     const result = await collectionCategories.findOneAndUpdate({slug: oldSlug}, {$set: newCategory});
-//     res.status(200).json({result})
-// });
-//
-// app.delete("/api/materials-categories/:id", async (req, res) => {
-//     const db = await client.db("material");
-//     const collectionCategories = await db.collection("materials_categories");
-//     if (!req.body) return res.sendStatus(400);
-//     const slug = req.params.id;
-//     // удаляем по id
-//     const result = await collectionCategories.deleteOne({slug: slug});
-//     res.status(200).json({result})
-// });
 
 const materialsCategories = require('./modules/materialsCategories')
 // Категории сырья
