@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require('cors');
+
 const bodyParser = require('body-parser')
+
 const app = express();
 app.use(express.urlencoded())
 app.use(express.json());
@@ -15,6 +17,7 @@ const corsOptions = {
 
 };
 
+
 app.use(cors(corsOptions));
 
 app.get("/", (req, res) => res.send("Express on Vercel"));
@@ -28,7 +31,7 @@ app.get("/api/users", async (req, res) => {
 // Категории сырья
 app.get("/api/materials-categories", async (req, res) => {
 // получаем всех пользователей
-    const collectionCategories = client.db("material").collection("materials_categories");;
+    const collectionCategories = await client.db("material").collection("materials_categories");
     // const collectionCategories = db.collection("materials_categories");
     const catList = await collectionCategories.find().toArray();
     res.send(catList);
@@ -66,23 +69,29 @@ app.delete("/api/materials-categories/:id", async (req, res) => {
     res.status(200).json({result})
 });
 
+const materials = require('./modules/materials')
 // Сырье
-app.get("/api/materials", async (req, res) => {
-// получаем всех пользователей
-    const db = client.db("material");
-    const collectionMaterials = db.collection("materials");
-    const materialsList = await collectionMaterials.find().toArray();
-    res.send(materialsList);
-});
+// app.get("/api/materials", async (req, res) => {
+// // получаем всех пользователей
+//     const db = client.db("material");
+//     const collectionMaterials = db.collection("materials");
+//     const materialsList = await collectionMaterials.find().toArray();
+//     res.send(materialsList);
+// });
 
-app.post("/api/materials", async (req, res) => {
-    const db = client.db("material");
-    const collectionMaterials = db.collection("materials");
-    if (!req.body) return res.sendStatus(400);
-    const result = await collectionMaterials.insertOne(req.body);
-    console.log('req.body', req.body)
-    res.send(result);
-});
+// app.post("/api/materials", async (req, res) => {
+//     const db = client.db("material");
+//     const collectionMaterials = db.collection("materials");
+//     if (!req.body) return res.sendStatus(400);
+//     const result = await collectionMaterials.insertOne(req.body);
+//     console.log('req.body', req.body)
+//     res.send(result);
+// });
+
+app.get("/api/materials", materials.getMaterials)
+app.post("/api/materials", materials.addMaterials)
+
+
 
 app.put("/api/materials", async (req, res) => {
     const db = client.db("material");
@@ -110,6 +119,9 @@ app.delete("/api/materials/:id", async (req, res) => {
     const result = await collectionMaterials.deleteOne({_id: newId});
     res.status(200).json({result})
 });
+
+
+
 
 app.listen(8800, () => console.log("Server ready on port 8800."));
 
