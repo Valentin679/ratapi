@@ -88,37 +88,41 @@ const materials = require('./modules/materials')
 //     res.send(result);
 // });
 
+// app.put("/api/materials", async (req, res) => {
+//     const db = client.db("material");
+//     const collectionMaterials = db.collection("materials");
+//     if (!req.body) return res.sendStatus(400);
+//     const oldTitle = req.body.oldTitle;
+//     const title = req.body.title;
+//     const category = req.body.category;
+//     const categoryTitle = req.body.categoryTitle;
+//     const price = req.body.price;
+//     console.log('req.body', req.body)
+//     const newMaterial = {title, category, categoryTitle, price};
+//     // обновляем данные
+//     const result = await collectionMaterials.findOneAndUpdate({title: oldTitle}, {$set: newMaterial});
+//     res.status(200).json({result})
+// });
+//
+// app.delete("/api/materials/:id", async (req, res) => {
+//     const db = client.db("material");
+//     const collectionMaterials = db.collection("materials");
+//     if (!req.body) return res.sendStatus(400);
+//     const id = req.params.id;
+//     const newId = new ObjectId(id)
+//     // удаляем по id
+//     const result = await collectionMaterials.deleteOne({_id: newId});
+//     res.status(200).json({result})
+// });
+
 app.get("/api/materials", materials.getMaterials)
 app.post("/api/materials", materials.addMaterials)
+app.put("/api/materials/:id", materials.putMaterials)
+app.delete("/api/materials", materials.deleteMaterials)
 
 
 
-app.put("/api/materials", async (req, res) => {
-    const db = client.db("material");
-    const collectionMaterials = db.collection("materials");
-    if (!req.body) return res.sendStatus(400);
-    const oldTitle = req.body.oldTitle;
-    const title = req.body.title;
-    const category = req.body.category;
-    const categoryTitle = req.body.categoryTitle;
-    const price = req.body.price;
-    console.log('req.body', req.body)
-    const newMaterial = {title, category, categoryTitle, price};
-    // обновляем данные
-    const result = await collectionMaterials.findOneAndUpdate({title: oldTitle}, {$set: newMaterial});
-    res.status(200).json({result})
-});
 
-app.delete("/api/materials/:id", async (req, res) => {
-    const db = client.db("material");
-    const collectionMaterials = db.collection("materials");
-    if (!req.body) return res.sendStatus(400);
-    const id = req.params.id;
-    const newId = new ObjectId(id)
-    // удаляем по id
-    const result = await collectionMaterials.deleteOne({_id: newId});
-    res.status(200).json({result})
-});
 
 
 
