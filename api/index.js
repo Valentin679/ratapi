@@ -70,11 +70,11 @@ app.get("/api/users", async (req, res) => {
 // });
 
 const materialsCategories = require('./modules/materialsCategories')
-// Сырье
-app.get("/api/materials", materialsCategories.getMaterialsCategories)
-app.post("/api/materials", materialsCategories.addMaterialsCategories)
-app.put("/api/materials", materialsCategories.putMaterialsCategories)
-app.delete("/api/materials/:id", materialsCategories.deleteMaterialsCategories)
+// Категории сырья
+app.get("/api/materials-categories", materialsCategories.getMaterialsCategories)
+app.post("/api/materials-categories", materialsCategories.addMaterialsCategories)
+app.put("/api/materials-categories", materialsCategories.putMaterialsCategories)
+app.delete("/api/materials-categories/:id", materialsCategories.deleteMaterialsCategories)
 
 const materials = require('./modules/materials')
 // Сырье
