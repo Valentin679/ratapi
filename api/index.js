@@ -29,92 +29,55 @@ app.get("/api/users", async (req, res) => {
     res.send(navList);
 });
 // Категории сырья
-app.get("/api/materials-categories", async (req, res) => {
-// получаем всех пользователей
-    const collectionCategories = await client.db("material").collection("materials_categories");
-    // const collectionCategories = db.collection("materials_categories");
-    const catList = await collectionCategories.find().toArray();
-    res.send(catList);
-});
-app.post("/api/materials-categories", async (req, res) => {
-    const db = await client.db("material");
-    const collectionCategories = await db.collection("materials_categories");
-    if (!req.body) return res.sendStatus(400);
-    const result = await collectionCategories.insertOne(req.body);
-    console.log('req.body', req.body)
-    res.send(result);
-    console.log(result);
-});
-app.put("/api/materials-categories", async (req, res) => {
-    const db = await client.db("material");
-    const collectionCategories = await db.collection("materials_categories");
-    if (!req.body) return res.sendStatus(400);
-    const slug = req.body.slug;
-    const title = req.body.title;
-    const oldSlug = req.body.oldSlug;
-    console.log('req.body', req.body)
-    const newCategory = {title: title, slug: slug};
-    // обновляем данные
-    const result = await collectionCategories.findOneAndUpdate({slug: oldSlug}, {$set: newCategory});
-    res.status(200).json({result})
-});
-
-app.delete("/api/materials-categories/:id", async (req, res) => {
-    const db = await client.db("material");
-    const collectionCategories = await db.collection("materials_categories");
-    if (!req.body) return res.sendStatus(400);
-    const slug = req.params.id;
-    // удаляем по id
-    const result = await collectionCategories.deleteOne({slug: slug});
-    res.status(200).json({result})
-});
-
-const materials = require('./modules/materials')
-// Сырье
-// app.get("/api/materials", async (req, res) => {
+// app.get("/api/materials-categories", async (req, res) => {
 // // получаем всех пользователей
-//     const db = client.db("material");
-//     const collectionMaterials = db.collection("materials");
-//     const materialsList = await collectionMaterials.find().toArray();
-//     res.send(materialsList);
+//     const collectionCategories = await client.db("material").collection("materials_categories");
+//     // const collectionCategories = db.collection("materials_categories");
+//     const catList = await collectionCategories.find().toArray();
+//     res.send(catList);
 // });
-
-// app.post("/api/materials", async (req, res) => {
-//     const db = client.db("material");
-//     const collectionMaterials = db.collection("materials");
+// app.post("/api/materials-categories", async (req, res) => {
+//     const db = await client.db("material");
+//     const collectionCategories = await db.collection("materials_categories");
 //     if (!req.body) return res.sendStatus(400);
-//     const result = await collectionMaterials.insertOne(req.body);
+//     const result = await collectionCategories.insertOne(req.body);
 //     console.log('req.body', req.body)
 //     res.send(result);
+//     console.log(result);
 // });
-
-// app.put("/api/materials", async (req, res) => {
-//     const db = client.db("material");
-//     const collectionMaterials = db.collection("materials");
+// app.put("/api/materials-categories", async (req, res) => {
+//     const db = await client.db("material");
+//     const collectionCategories = await db.collection("materials_categories");
 //     if (!req.body) return res.sendStatus(400);
-//     const oldTitle = req.body.oldTitle;
+//     const slug = req.body.slug;
 //     const title = req.body.title;
-//     const category = req.body.category;
-//     const categoryTitle = req.body.categoryTitle;
-//     const price = req.body.price;
+//     const oldSlug = req.body.oldSlug;
 //     console.log('req.body', req.body)
-//     const newMaterial = {title, category, categoryTitle, price};
+//     const newCategory = {title: title, slug: slug};
 //     // обновляем данные
-//     const result = await collectionMaterials.findOneAndUpdate({title: oldTitle}, {$set: newMaterial});
+//     const result = await collectionCategories.findOneAndUpdate({slug: oldSlug}, {$set: newCategory});
 //     res.status(200).json({result})
 // });
 //
-// app.delete("/api/materials/:id", async (req, res) => {
-//     const db = client.db("material");
-//     const collectionMaterials = db.collection("materials");
+// app.delete("/api/materials-categories/:id", async (req, res) => {
+//     const db = await client.db("material");
+//     const collectionCategories = await db.collection("materials_categories");
 //     if (!req.body) return res.sendStatus(400);
-//     const id = req.params.id;
-//     const newId = new ObjectId(id)
+//     const slug = req.params.id;
 //     // удаляем по id
-//     const result = await collectionMaterials.deleteOne({_id: newId});
+//     const result = await collectionCategories.deleteOne({slug: slug});
 //     res.status(200).json({result})
 // });
 
+const materialsCategories = require('./modules/materialsCategories')
+// Сырье
+app.get("/api/materials", materialsCategories.getMaterialsCategories)
+app.post("/api/materials", materialsCategories.addMaterialsCategories)
+app.put("/api/materials", materialsCategories.putMaterialsCategories)
+app.delete("/api/materials/:id", materialsCategories.deleteMaterialsCategories)
+
+const materials = require('./modules/materials')
+// Сырье
 app.get("/api/materials", materials.getMaterials)
 app.post("/api/materials", materials.addMaterials)
 app.put("/api/materials", materials.putMaterials)
