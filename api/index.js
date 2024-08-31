@@ -43,6 +43,10 @@ app.post("/api/materials", materials.addMaterials)
 app.put("/api/materials", materials.putMaterials)
 app.delete("/api/materials/:id", materials.deleteMaterials)
 
+const settings = require('./modules/settings')
+//Настройки
+app.get("/api/settings", settings.getAdminMenu)
+
 
 
 
