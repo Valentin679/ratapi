@@ -3,9 +3,8 @@ const client = new MongoClient("mongodb+srv://admin:12345asd@rat.gk7dz4o.mongodb
 
 
 module.exports.getAdminMenu = async (req, res) => {
-    const collectionMaterials = client.db("settings").collection("admin-menu");
-    const materialsList = await collectionMaterials.find().toArray();
-    res.send(materialsList);
+    const menuList = client.db("settings").collection("admin-menu").find().toArray();
+    res.send(menuList);
 }
 
 // module.exports.addMaterials = async (req, res) => {
