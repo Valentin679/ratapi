@@ -45,7 +45,7 @@ app.delete("/api/materials/:id", materials.deleteMaterials)
 
 const settings = require('./modules/settings')
 //Настройки
-app.get("/api/settings", settings.getAdminMenu)
+app.get("/api/settings/menu", settings.getAdminMenu)
 
 
 
