@@ -16,8 +16,6 @@ const corsOptions = {
     // default: "http://localhost:3000"
 
 };
-
-
 app.use(cors(corsOptions));
 
 app.get("/", (req, res) => res.send("Express on Vercel"));
@@ -45,7 +43,7 @@ app.delete("/api/materials/:id", materials.deleteMaterials)
 
 const settings = require('./modules/settings')
 //Настройки
-app.get("/api/settings/menu", settings.getAdminMenu)
+app.get("/api/settings", settings.getAdminMenu)
 
 
 
