@@ -2,11 +2,11 @@ const {MongoClient, ObjectId} = require("mongodb");
 const client = new MongoClient("mongodb+srv://admin:12345asd@rat.gk7dz4o.mongodb.net/?appName=rat");
 
 
-// module.exports.getAdminMenu = async (req, res) => {
-//     const collectionMenu = await client.db("settings").collection("admin-menu");
-//     const menuList = collectionMenu.find().toArray();
-//     res.send(menuList);
-// }
+module.exports.getAdminMenu = async (req, res) => {
+    const collectionMenu = await client.db("settings").collection("admin-menu");
+    const menuList = collectionMenu.find().toArray();
+    res.send(menuList);
+}
 
 // module.exports.addMaterials = async (req, res) => {
 //     const db = client.db("material");
