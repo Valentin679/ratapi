@@ -45,6 +45,9 @@ const settings = require('./modules/settings')
 //Настройки
 app.get("/api/settings", settings.getAdminMenu)
 
+const filters = require('./modules/filters')
+//Фильры
+app.get("/api/filters/categories", filters.getFiltersCategories)
 
 
 
