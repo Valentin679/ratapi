@@ -48,7 +48,7 @@ app.get("/api/settings", settings.getAdminMenu)
 const filters = require('./modules/filters')
 //Фильры
 app.get("/api/filters/categories", filters.getFiltersCategories)
-app.get("/api/filters/categories/:slug", filters.getFilterOneCategory)
+app.get("/api/filters/categories?slug", filters.getFilterOneCategory)
 
 const forms = require('./modules/forms')
 //Формы
