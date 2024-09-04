@@ -11,7 +11,9 @@ module.exports.getFiltersCategories = async (req, res) => {
 
 module.exports.getFilterOneCategory = async (req, res) => {
     console.log(req.query)
-    // const collection = db.collection("filtres_categories");
-    // const result = await collection.find().toArray();
-    res.send(req.query);
+    const slug = req.params.slug;
+    const collection = db.collection(slug);
+    const result = await collection.find().toArray();
+    res.send(result);
+
 }
