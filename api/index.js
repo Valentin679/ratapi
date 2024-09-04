@@ -49,7 +49,9 @@ const filters = require('./modules/filters')
 //Фильры
 app.get("/api/filters/categories", filters.getFiltersCategories)
 
-
+const forms = require('./modules/forms')
+//Фильры
+app.get("/api/products/forms", forms.getForms)
 
 
 
