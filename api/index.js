@@ -50,10 +50,13 @@ const filters = require('./modules/filters')
 app.get("/api/filters/categories", filters.getFiltersCategories)
 
 const forms = require('./modules/forms')
-//Фильры
+//Формы
 app.get("/api/products/forms", forms.getForms)
 
-
+const sets = require('./modules/sets')
+//Наборы
+app.get("/api/products/sets", sets.getSets)
+app.post("/api/products/sets", sets.addSets)
 
 
 
