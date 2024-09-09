@@ -53,6 +53,7 @@ app.get("/api/filters/categories/:slug", filters.getFilterOneCategory)
 const forms = require('./modules/forms')
 //Формы
 app.get("/api/products/forms", forms.getForms)
+app.post("/api/products/forms", forms.addForm)
 
 const sets = require('./modules/sets')
 //Наборы
