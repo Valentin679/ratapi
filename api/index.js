@@ -54,6 +54,7 @@ const forms = require('./modules/forms')
 //Формы
 app.get("/api/products/forms", forms.getForms)
 app.post("/api/products/forms", forms.addForm)
+app.delete("/api/products/forms/:id", forms.deleteForm)
 
 const sets = require('./modules/sets')
 //Наборы
