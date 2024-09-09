@@ -16,3 +16,13 @@ module.exports.addForm = async (req, res) => {
     console.log('req.body', req.body)
     res.send(result);
 }
+
+module.exports.deleteForm = async (req, res) => {
+    const collection = db.collection("forms");
+    if (!req.body) return res.sendStatus(400);
+    const id = req.params.id;
+    const newId = new ObjectId(id)
+    // удаляем по id
+    const result = await collection.deleteOne({_id: newId});
+    res.status(200).json({result})
+}
